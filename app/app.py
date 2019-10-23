@@ -16,6 +16,7 @@ import logging
 import sys
 import config
 from setConfigure import set_secret
+
 app = Flask(__name__)
 
 set_secret(__name__)
@@ -245,7 +246,6 @@ class ProblemMain(Resource):
             return json.dumps('NoData')
         return json.dumps(result)
 
-
     @login_required()
     def get(self):
         return "good!"
@@ -463,6 +463,6 @@ api.add_resource(AccountImg, '/account/img')
 # 서버 실행
 if __name__ == '__main__':
     app.secret_key = getattr(sys.modules[__name__], 'FN_FLASK_SECRET_KEY')
-    print(app.config)
-    app.run(port=app.config['PORT'], host=app.config['SERVER_HOST'])
+    pemTuple = (app.config['CERT_PEM'], app.config['PRIVATE_KEY_PEM'])
+    app.run(port=app.config['PORT'], host=app.config['SERVER_HOST'], ssl_context=pemTuple)
     print("__APP START__")

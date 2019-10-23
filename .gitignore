@@ -3,7 +3,7 @@ app/secrets.json
 app/secret.json
 secret.json
 secrets.json
-
+cert/
 # Created by https://www.gitignore.io/api/macos,python,django
 # Edit at https://www.gitignore.io/?templates=macos,python,django
 
