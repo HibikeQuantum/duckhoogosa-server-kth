@@ -11,7 +11,8 @@ class DevelopmentConfig(Base):
     PORT = 8000
     SERVER_HOST = '127.0.0.1'
     DATABASE_NAME = 'duckdevdb'
-    CLIENT_HOST = 'http://localhost:3000'
+    CLIENT_HOST = 'https://localhost:3000'
+
 
 
 class TestConfig(Base):
@@ -20,7 +21,7 @@ class TestConfig(Base):
     PORT = 7999
     SERVER_HOST = '172.31.32.164'
     DATABASE_NAME = 'ducktestdb'
-    CLIENT_HOST = 'http://duckhoo.site'
+    CLIENT_HOST = 'https://test.duckhoo.site'
 
 
 class ProductionConfig(Base):
@@ -28,4 +29,5 @@ class ProductionConfig(Base):
     PORT = 8000
     SERVER_HOST = '172.31.32.164'
     DATABASE_NAME = 'duckproductiondb'
-    CLIENT_HOST = 'http://duckhoo.site'
+    CLIENT_HOST = 'https://duckhoo.site'
+

@@ -16,6 +16,7 @@ import logging
 import sys
 import config
 from setConfigure import set_secret
+
 app = Flask(__name__)
 
 set_secret(__name__)
@@ -29,14 +30,17 @@ conf_password = getattr(sys.modules[__name__], 'DB-PASSWORD')
 env = sys.argv[1] if len(sys.argv) >= 2 else 'dev'
 app.config.from_object(config.Base)
 if env == 'dev':
-    print("DEV!!!!!!!!!!!!")
+    print("+++++ D E V +++++")
     app.config.from_object(config.DevelopmentConfig)
+    pemTuple = (getattr(sys.modules[__name__], 'DEV_CERT_PEM'), getattr(sys.modules[__name__], 'DEV_PRIVATE_KEY_PEM'))
 elif env == 'test':
-    print("TEST!!!!!!!!!!!!")
+    print("+++++ T E S T +++++")
     app.config.from_object(config.TestConfig)
+    pemTuple = (getattr(sys.modules[__name__], 'CERT_PEM'), getattr(sys.modules[__name__], 'PRIVATE_KEY_PEM'))
 elif env == 'prod':
-    print("PRODUCTION!!!!!!!!!!!!")
+    print("+++++ P R O D U C T I O N +++++")
     app.config.from_object(config.ProductionConfig)
+    pemTuple = (getattr(sys.modules[__name__], 'CERT_PEM'), getattr(sys.modules[__name__], 'PRIVATE_KEY_PEM'))
 else:
     raise ValueError('Invalid environment name')
 
@@ -244,7 +248,6 @@ class ProblemMain(Resource):
         if len(result) is 0:
             return json.dumps('NoData')
         return json.dumps(result)
-
 
     @login_required()
     def get(self):
@@ -463,6 +466,5 @@ api.add_resource(AccountImg, '/account/img')
 # 서버 실행
 if __name__ == '__main__':
     app.secret_key = getattr(sys.modules[__name__], 'FN_FLASK_SECRET_KEY')
-    print(app.config)
-    app.run(port=app.config['PORT'], host=app.config['SERVER_HOST'])
+    app.run(port=app.config['PORT'], host=app.config['SERVER_HOST'], ssl_context=pemTuple)
     print("__APP START__")

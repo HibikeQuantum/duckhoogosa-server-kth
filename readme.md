@@ -8,8 +8,10 @@
 
 ### 백그라운드 실행 (with log)
 * sudo nohup python3 app/app.py prod > app.log &
+* nohup python3 app/app.py test > app.log &
 > 에러출력이 파일에 찍혀서 터미널로 확인 안됨 주의)    
-* netstat -ntlp | grep :8000      
+* netstat -ntlp | grep :8000
+* netstat -ntlp | grep :7999           
 > (포트점유 확인)
 * tail -f app.log   
 > (로그 확인)
@@ -40,7 +42,7 @@ https://stackoverflow.com/questions/38134086/how-to-run-pylint-with-pycharm
 ## 가상 환경 설정
 서버는 EC2user 계정으로 실행
 - pip install venv
-- python3 -m venv venv
+- virtualenv venv
 - which python3 
 - source venv/bin/activate
 - /Users/mac/WebstormProjects/4WEEKS/DuckhooGosa-server/venv/bin/python3
